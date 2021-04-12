@@ -1,0 +1,13 @@
+h1 {
+  color: red;
+}
+
+.spots {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.character {
+  border-bottom: 1px solid black;
+  min-width: 20px;
+}
