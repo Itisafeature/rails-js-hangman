@@ -1,6 +1,10 @@
 const BASE_URL = 'http://localhost:3000/api';
 
+let currentMovie;
+const currentGuesses = [];
+
 document.addEventListener('DOMContentLoaded', () => {
+  addKeyDown();
   getMovie();
 });
 
@@ -11,28 +15,42 @@ const getMovie = () => {
 };
 
 const updateTitle = movie => {
+  console.log(movie.title);
+  currentMovie = movie;
   transformTitle(movie.title);
 };
 
+const addKeyDown = () => {
+  document.addEventListener('keydown', e => {
+    currentGuesses.push(e.key.toLowerCase());
+    document.getElementsByClassName('spots')[0].innerHTML = '';
+    transformTitle(currentMovie.title);
+  });
+};
+
+const updateGame = () => {};
+
 const transformTitle = title => {
-  for (let i = 0; i < title.length; i++) {
-    let elToAdd = document.createElement('p');
+  const words = title.split(' ');
+  for (let i = 0; i < words.length; i++) {
+    const div = document.createElement('div');
+    div.classList.add('word');
+    for (let j = 0; j < words[i].length; j++) {
+      let elToAdd = document.createElement('p');
 
-    if (title[i].match(/[,'?!.]/)) {
-      elToAdd.classList.add('punctuation');
-      elToAdd.innerHTML = title[i];
-    } else if (title[i] === ' ') {
-      elToAdd.classList.add('space');
-      elToAdd.innerHTML = '&nbsp;';
-    } else {
-      elToAdd.classList.add('character');
-    }
+      if (words[i][j].match(/[,'?!.:]/)) {
+        elToAdd.classList.add('punctuation');
+        elToAdd.innerHTML = words[i][j];
+      } else {
+        elToAdd.classList.add('character');
 
-    document.getElementsByClassName('spots')[0].appendChild(elToAdd);
-    if (!elToAdd.classList.contains('space')) {
-      const spaceToAdd = document.createElement('p');
-      spaceToAdd.innerHTML = '&nbsp;';
-      document.getElementsByClassName('spots')[0].appendChild(spaceToAdd);
+        if (currentGuesses.includes(words[i][j].toLowerCase())) {
+          elToAdd.innerHTML = words[i][j];
+        }
+      }
+
+      div.appendChild(elToAdd);
     }
+    document.getElementsByClassName('spots')[0].appendChild(div);
   }
 };

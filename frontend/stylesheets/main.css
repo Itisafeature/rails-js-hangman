@@ -2,12 +2,24 @@ h1 {
   color: red;
 }
 
+.game-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .spots {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
 }
+
+.word {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+}
+
 .character {
   border-bottom: 1px solid black;
   min-width: 20px;
+  margin-right: 2px;
 }
