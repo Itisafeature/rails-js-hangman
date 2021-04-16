@@ -2,22 +2,27 @@ const BASE_URL = 'http://localhost:3000/api';
 
 class Game {
   constructor() {
-    this.fetchMovie();
-    console.log(this._movie);
+    this._score = 0;
   }
-
   set movie(currentMovie) {
-    debugger;
-    this_.movie = currentMovie;
-  }
-
-  async fetchMovie() {
-    fetch(`${BASE_URL}/random-movie`)
-      .then(res => res.json())
-      .then(data => (this.movie = data.data.attributes));
+    this._movie = currentMovie;
   }
 
   get movie() {
     return this._movie;
+  }
+
+  updateScore(addedPoints) {
+    this._score += addedPoints;
+  }
+
+  get score() {
+    return this._score;
+  }
+
+  async fetchMovie() {
+    return fetch(`${BASE_URL}/random-movie`)
+      .then(res => res.json())
+      .then(data => (this.movie = data.data.attributes));
   }
 }

@@ -1,27 +1,25 @@
-let currentMovie;
+let currentGame;
 const currentGuesses = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-  new Game();
+  startGame().then(() => {
+    debugger;
+  });
 });
 
-const getMovie = () => {
-  fetch(`${BASE_URL}/random-movie`)
-    .then(res => res.json())
-    .then(data => updateTitle(data.data.attributes));
-};
-
-const updateTitle = movie => {
-  console.log(movie.title);
-  currentMovie = movie;
-  transformTitle(movie.title);
+const startGame = () => {
+  currentGame = new Game();
+  return currentGame
+    .fetchMovie()
+    .then(() => transformTitle(currentGame.movie.title))
+    .then(() => addKeyDown());
 };
 
 const addKeyDown = () => {
   document.addEventListener('keydown', e => {
     currentGuesses.push(e.key.toLowerCase());
     document.getElementsByClassName('spots')[0].innerHTML = '';
-    transformTitle(currentMovie.title);
+    transformTitle(currentGame.movie.title);
   });
 };
 
@@ -35,7 +33,7 @@ const transformTitle = title => {
     for (let j = 0; j < words[i].length; j++) {
       let elToAdd = document.createElement('p');
 
-      if (words[i][j].match(/[,'?!.:]/)) {
+      if (words[i][j].match(/[,'?!.:-]/)) {
         elToAdd.classList.add('punctuation');
         elToAdd.innerHTML = words[i][j];
       } else {
