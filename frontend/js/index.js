@@ -1,11 +1,8 @@
-const BASE_URL = 'http://localhost:3000/api';
-
 let currentMovie;
 const currentGuesses = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-  addKeyDown();
-  getMovie();
+  new Game();
 });
 
 const getMovie = () => {
