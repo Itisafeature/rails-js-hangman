@@ -3,7 +3,7 @@ const currentGuesses = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   startGame().then(() => {
-    debugger;
+    console.log(currentGame.movie);
   });
 });
 
@@ -11,7 +11,7 @@ const startGame = () => {
   currentGame = new Game();
   return currentGame
     .fetchMovie()
-    .then(() => transformTitle(currentGame.movie.title))
+    .then(() => transformTitle(currentGame.movie))
     .then(() => addKeyDown());
 };
 

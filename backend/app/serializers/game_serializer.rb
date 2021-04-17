@@ -1,6 +1,6 @@
-class ScoreSerializer
+class GameSerializer
   include JSONAPI::Serializer
-  attributes :total, :name
+  attributes :id, :score
 
   belongs_to :movie
 end

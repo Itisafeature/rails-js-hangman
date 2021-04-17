@@ -12,6 +12,14 @@ class Game {
     return this._movie;
   }
 
+  set id(id) {
+    this._id = id;
+  }
+
+  get id() {
+    return this._id;
+  }
+
   updateScore(addedPoints) {
     this._score += addedPoints;
   }
@@ -23,6 +31,6 @@ class Game {
   async fetchMovie() {
     return fetch(`${BASE_URL}/random-movie`)
       .then(res => res.json())
-      .then(data => (this.movie = data.data.attributes));
+      .then(data => (this.movie = data.included[0].attributes.title));
   }
 }

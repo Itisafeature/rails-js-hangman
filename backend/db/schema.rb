@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_213545) do
+ActiveRecord::Schema.define(version: 2021_04_17_171025) do
+
+  create_table "games", force: :cascade do |t|
+    t.integer "movie_id", null: false
+    t.integer "score", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_games_on_movie_id"
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
@@ -18,14 +26,5 @@ ActiveRecord::Schema.define(version: 2021_04_07_213545) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "scores", force: :cascade do |t|
-    t.integer "total"
-    t.integer "movie_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.index ["movie_id"], name: "index_scores_on_movie_id"
-  end
-
-  add_foreign_key "scores", "movies"
+  add_foreign_key "games", "movies"
 end

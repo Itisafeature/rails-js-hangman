@@ -1,4 +1,4 @@
 class Movie < ApplicationRecord
-  has_many :scores
+  has_many :games
   validates :title, presence: true, uniqueness: true
 end
